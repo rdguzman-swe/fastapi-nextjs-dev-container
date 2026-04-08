@@ -1,10 +1,11 @@
-PROJECT_NAME := $(notdir $(CURDIR))
+PROJECT_NAME   := $(notdir $(CURDIR))
 
 IMAGE_NAME     := $(PROJECT_NAME)-dev
 CONTAINER_NAME := $(PROJECT_NAME)-dev
 WORKSPACE      := /workspaces/$(PROJECT_NAME)
+HOST_DIR       := $(CURDIR)
 
-.DEFAULT_GOAL := help
+.DEFAULT_GOAL  := help
 
 .PHONY: help
 help:
@@ -33,7 +34,7 @@ start:
 		echo "▶ Creating container..."; \
 		docker run -d \
 			--name $(CONTAINER_NAME) \
-			-v $(HOST_DIR):$(WORKSPACE) \
+			-v "$(HOST_DIR):$(WORKSPACE)" \
 			-w $(WORKSPACE) \
 			-p 3000:3000 \
 			-p 8000:8000 \
