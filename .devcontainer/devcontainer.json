@@ -1,5 +1,5 @@
 {
-  "name": "FastAPI + Next.js",
+  "name": "fastapi-nextjs-dev-container",
   "build": {
     "dockerfile": "Dockerfile",
     "context": ".."
