@@ -1,1 +1,1 @@
-# FastAP + Next.js Dev Container
+# FastAPI & Next.js Dev Container
