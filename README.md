@@ -6,23 +6,22 @@
 
 ```bash
 git clone https://github.com/rdguzman-swe/fastapi-nextjs-dev-container.git <your-project>
-cd <your-project>
 ```
 
 2. Open in VS Code
 
 ```bash
-code .
+code <your-project>
 ```
 
 3. Reopen in container
    - Press Cmd/Ctrl + Shift + P
    - Select `Dev Containers: Reopen in Container`
 
-4. Scaffold the project
+4. Initialize the project
 
 ```bash
-make scaffold
+make init
 ```
 
 5. Start coding!
