@@ -1,5 +1,4 @@
-PROJECT_NAME := $(notdir $(CURDIR))
-
+SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 .PHONY: help
@@ -34,7 +33,7 @@ scaffold:
 
 .PHONY: post-create
 post-create:
-	bash .devcontainer/post-create.sh
+	$(SHELL) .devcontainer/post-create.sh
 
 .PHONY: backend
 backend:
@@ -50,4 +49,4 @@ dev:
 
 .PHONY: shell
 shell:
-	bash
+	zsh
