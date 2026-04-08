@@ -1,35 +1,24 @@
-IMAGE_NAME     := PROJECT_NAME-dev
-CONTAINER_NAME := PROJECT_NAME-dev
-WORKSPACE      := /workspaces/PROJECT_NAME
-HOST_DIR       := $(PWD)
+PROJECT_NAME := $(notdir $(CURDIR))
 
-.DEFAULT_GOAL  := help
+IMAGE_NAME     := $(PROJECT_NAME)-dev
+CONTAINER_NAME := $(PROJECT_NAME)-dev
+WORKSPACE      := /workspaces/$(PROJECT_NAME)
+
+.DEFAULT_GOAL := help
 
 .PHONY: help
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
-		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
+	| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 .PHONY: init
-init: setup scaffold
+init: up scaffold post-create
 
-.PHONY: scaffold
-scaffold:
-	@echo "▶ Scaffolding backend..."
-	docker exec $(CONTAINER_NAME) bash -c "\
-		mkdir -p $(WORKSPACE)/backend && \
-		cd $(WORKSPACE)/backend && \
-		uv init && \
-		uv add fastapi uvicorn"
-	@echo "▶ Scaffolding frontend..."
-	docker exec $(CONTAINER_NAME) bash -c "\
-		mkdir -p $(WORKSPACE)/frontend && \
-		cd $(WORKSPACE)/frontend && \
-		pnpm dlx create-next-app@latest . --typescript --tailwind --eslint --app --no-git"
-	@echo "✅ Scaffold complete!"
+.PHONY: up
+up: build start 
 
-.PHONY: setup
-setup: build start post-create
+.PHONY: rebuild
+rebuild: down build start post-create
 
 .PHONY: build
 build:
@@ -37,14 +26,48 @@ build:
 
 .PHONY: start
 start:
-	docker run -d \
-		--name $(CONTAINER_NAME) \
-		-v $(HOST_DIR):$(WORKSPACE) \
-		-w $(WORKSPACE) \
-		-p 3000:3000 \
-		-p 8000:8000 \
-		--entrypoint sleep \
-		$(IMAGE_NAME) infinity
+	@if [ "$$(docker ps -aq -f name=$(CONTAINER_NAME))" ]; then \
+		echo "▶ Container exists. Starting..."; \
+		docker start $(CONTAINER_NAME); \
+	else \
+		echo "▶ Creating container..."; \
+		docker run -d \
+			--name $(CONTAINER_NAME) \
+			-v $(HOST_DIR):$(WORKSPACE) \
+			-w $(WORKSPACE) \
+			-p 3000:3000 \
+			-p 8000:8000 \
+			--entrypoint sleep \
+			$(IMAGE_NAME) infinity; \
+	fi
+
+.PHONY: down
+down: 
+	-@docker stop $(CONTAINER_NAME)
+	-@docker rm $(CONTAINER_NAME)
+
+.PHONY: scaffold
+scaffold:
+	@echo "▶ Scaffolding backend..."
+	docker exec $(CONTAINER_NAME) bash -c '\
+		if [ ! -d backend ]; then \
+			mkdir backend && cd backend && \
+			uv init && \
+			uv add fastapi uvicorn; \
+		else \
+			echo "  → backend already exists"; \
+		fi'
+
+	@echo "▶ Scaffolding frontend..."
+	docker exec $(CONTAINER_NAME) bash -c '\
+		if [ ! -d frontend ]; then \
+			mkdir frontend && cd frontend && \
+			pnpm dlx create-next-app@latest . --typescript --tailwind --eslint --app --no-git; \
+		else \
+			echo "  → frontend already exists"; \
+		fi'
+
+	@echo "✅ Scaffold complete!"
 
 .PHONY: post-create
 post-create:
@@ -52,19 +75,17 @@ post-create:
 
 .PHONY: backend
 backend:
-	docker exec $(CONTAINER_NAME) bash -c "cd backend && uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000"
+	docker exec -it $(CONTAINER_NAME) bash -c "cd backend && uv run uvicorn main:app --reload --host 0.0.0.0 --port 8000"
 
 .PHONY: frontend
 frontend:
-	docker exec $(CONTAINER_NAME) bash -c "cd frontend && pnpm dev"
+	docker exec -it $(CONTAINER_NAME) bash -c "cd frontend && pnpm dev"
+
+.PHONY: dev
+dev:
+	@echo "Run 'make backend' and 'make frontend' in separate terminals"
 
 .PHONY: shell
 shell:
 	docker exec -it $(CONTAINER_NAME) bash
-
-.PHONY: down
-down:
-	docker stop $(CONTAINER_NAME) && docker rm $(CONTAINER_NAME)
-
-.PHONY: rebuild
-rebuild: down build start post-create
+	
