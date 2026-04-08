@@ -9,7 +9,7 @@ RUN mkdir -p /commandhistory \
     && chown -R vscode:vscode /commandhistory
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
-RUN uv python install 3.13
+RUN uv python install $(shell cat .python-version)
 
 USER vscode
 

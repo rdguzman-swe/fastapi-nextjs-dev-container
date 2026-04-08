@@ -1,3 +1,4 @@
+PYTHON_VERSION := $(shell cat .python-version)
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
@@ -15,7 +16,7 @@ scaffold:
 	@if [ ! -d backend ]; then \
 		mkdir backend && cd backend && \
 		uv init && \
-		uv venv --python 3.13 && \
+		uv venv --python $(PYTHON_VERSION) && \
 		uv add fastapi uvicorn; \
 	else \
 		echo "  → backend already exists"; \
