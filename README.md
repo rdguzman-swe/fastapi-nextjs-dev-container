@@ -23,5 +23,3 @@ code <your-project>
 ```bash
 make init
 ```
-
-5. Start coding!
