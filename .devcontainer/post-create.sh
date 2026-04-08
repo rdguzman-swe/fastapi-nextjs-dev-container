@@ -1,14 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -e
 
-echo "▶ Setting up Python backend..."
-cd backend
-uv sync
-cd ..
+echo "▶ Running post-create setup..."
 
-echo "▶ Setting up Next.js frontend..."
-cd frontend
-pnpm install
-cd ..
+if [ -d "backend" ]; then
+  echo "▶ Setting up backend..."
+  cd backend
 
-echo "✅ Dev container ready!"
+  if [ ! -d ".venv" ]; then
+    echo "  → Creating virtual environment..."
+    uv venv
+  fi
+
+  echo "  → Syncing dependencies..."
+  uv sync || true
+
+  cd ..
+else
+  echo "⚠️  Skipping backend (not initialized yet)"
+fi
+
+if [ -d "frontend" ]; then
+  echo "▶ Setting up frontend..."
+  cd frontend
+
+  echo "  → Installing dependencies..."
+  pnpm install || true
+
+  cd ..
+else
+  echo "⚠️  Skipping frontend (not initialized yet)"
+fi
+
+echo "✅ post-create complete!"
