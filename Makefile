@@ -16,6 +16,7 @@ scaffold:
 	@if [ ! -d backend ]; then \
 		mkdir backend && cd backend && \
 		uv init && \
+		uv venv --python 3.13 && \
 		uv add fastapi uvicorn; \
 	else \
 		echo "  → backend already exists"; \
