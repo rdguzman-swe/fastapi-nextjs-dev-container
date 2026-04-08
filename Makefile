@@ -25,7 +25,7 @@ scaffold:
 	@echo "▶ Scaffolding frontend..."
 	@if [ ! -d frontend ]; then \
 		mkdir frontend && cd frontend && \
-		bun create-next-app@latest . --typescript --tailwind --eslint --app --no-git; \
+		bun create next-app@latest . --use-bun --typescript --tailwind --eslint --app --no-git; \
 	else \
 		echo "  → frontend already exists"; \
 	fi
