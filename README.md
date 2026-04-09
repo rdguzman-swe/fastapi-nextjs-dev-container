@@ -14,7 +14,7 @@
 [![ty](https://img.shields.io/badge/%E2%80%8B-ty-45ebe0?logo=ty)](https://github.com/astral-sh/ty)
 [![pre-commit](https://img.shields.io/badge/%E2%80%8B-pre--commit-FAB040?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
-A fully containerized development environment for building modern full-stack web applications using Next.js and FastAPI.
+A minimal, batteries-included dev container for building full-stack apps with Next.js and FastAPI—no local setup required.
 
 ---
 
@@ -66,6 +66,8 @@ code <your-project>
 make init
 ```
 
+This will scaffold the backend and frontend and ainstall all dependencies.
+
 5. Edit `frontend/` and `backend/` files as needed
 
 ---
@@ -95,23 +97,25 @@ Run `make help` to see a list of all available commands:
 make help
 ```
 
-| Command            | Description                          |
-| ------------------ | ------------------------------------ |
-| `make init`        | Full setup (scaffold + install)      |
-| `make scaffold`    | Create backend & frontend if missing |
-| `make frontend`    | Run Next.js dev server (port 3000)   |
-| `make backend`     | Run FastAPI server (port 8000)       |
-| `make post-create` | Re-run container setup script        |
+| Command            | Description                                    |
+| ------------------ | ---------------------------------------------- |
+| `make init`        | Full setup (scaffold + install)                |
+| `make scaffold`    | Create backend & frontend if missing           |
+| `make frontend`    | Run Next.js dev server (http://localhost:3000) |
+| `make backend`     | Run FastAPI server (http://localhost:8000)     |
+| `make post-create` | Re-run container setup script                  |
 
 ---
 
-## 🪝 Pre-Commit Hooks
+## 🪝 Pre-commit Hooks
 This dev container includes `pre-commit` hooks to automatically run checks before each commit:
-1. `eslint`
-2. `prettier`
-3. `ruff-lint`
-4. `ruff-format`
-5. `ty`
+- `eslint` (TypeScript linting)
+- `prettier` (TypeScript formatting)
+- `ruff check` (Python linting)
+- `ruff format` (Python formatting)
+- `ty` (Python type checking)
+
+> Hooks are automatically installed when the dev container is created.
 
 ---
 
@@ -137,11 +141,6 @@ This dev container includes `pre-commit` hooks to automatically run checks befor
 - `Ruff`
 - `ty`
 - `Docker`
-
----
-
-## 🔧 Customization
-To add additional dev container features and VS Code extensions, modify the `.devcontainer/devcontainer.json` by appending to the `"features"` object and `"extensions"` array, respectively.
 
 ---
 
