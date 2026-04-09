@@ -61,11 +61,13 @@ code <your-project>
    - `Cmd/Ctrl + Shift + P`
    - Select `Dev Containers: Reopen in Container`
 
-4. Initialize the project
+4. Initialize project
 
 ```bash
 make init
 ```
+
+5. Edit `frontend/` and `backend/` files as needed
 
 ---
 
@@ -73,12 +75,14 @@ make init
 
 ```diff
 .
-├── .devcontainer/       # Dev container config
-├── backend/             # FastAPI app (created on scaffold)
-├── frontend/            # Next.js app (created on scaffold)
+├── .devcontainer/           # Dev container config
+├── backend/                 # FastAPI app (created on scaffold)
+├── frontend/                # Next.js app (created on scaffold)
 ├── .gitignore
+├── .pre-commit-config.yaml  # pre-commit hooks
 ├── .python-version
-├── Makefile             # Developer commands
+├── LICENSE.txt
+├── Makefile                 # Developer commands
 └── README.md
 ```
 
@@ -116,23 +120,23 @@ This dev container includes `pre-commit` hooks to automatically run checks befor
 
 ### Preinstalled Tools
 
-- Bun
-- uv
-- Python
-- Git
-- curl
+- `Bun`
+- `uv`
+- `Python`
+- `Git`
+- `curl`
 - Build tools
 
 ### VS Code Extensions
 
-- Tailwind CSS
-- ESLint
-- Prettier
-- Python
-- Pylance
-- Ruff
-- ty
-- Docker
+- `Tailwind CSS`
+- `ESLint`
+- `Prettier`
+- `Python`
+- `Pylance`
+- `Ruff`
+- `ty`
+- `Docker`
 
 ---
 
