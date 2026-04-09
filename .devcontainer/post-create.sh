@@ -19,21 +19,24 @@ if [ -d "backend" ]; then
   echo "▶ Setting up backend..."
   cd backend
 
-  if [ ! -d ".venv" ]; then
-    echo "  → Creating virtual environment..."
-    uv venv
-  fi
+  echo "  → Recreating virtual environment..."
+  rm -rf .venv
+  uv venv
 
   echo "  → Syncing dependencies..."
-  uv sync || true
+  uv sync --link-mode=copy || true
 
   cd ..
 else
   echo "⚠️  Skipping backend (not initialized yet)"
 fi
 
-echo "▶ Setting up pre-commit..."
-uv add --dev pre-commit || true
-pre-commit install || true
+if [[ -d "backend" && -d "frontend" ]]; then
+  echo "  → Installing pre-commit hooks..."
+  uv tool install pre-commit --link-mode=copy
+  pre-commit install --install-hooks
+else
+  echo "⚠️  Skipping pre-commit hooks (not initialized yet)"
+fi
 
 echo "✅ post-create complete!"
