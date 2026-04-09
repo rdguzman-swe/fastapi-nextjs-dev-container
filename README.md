@@ -119,12 +119,13 @@ This dev container includes `pre-commit` hooks to automatically run checks befor
 
 ### Preinstalled Tools
 
-- `Bun`
-- `uv`
-- `Python`
+- `Zsh` (Z shell)
 - `Git`
 - `curl`
 - Build tools
+- `Bun`
+- `uv`
+- `Python`
 
 ### VS Code Extensions
 
@@ -136,6 +137,11 @@ This dev container includes `pre-commit` hooks to automatically run checks befor
 - `Ruff`
 - `ty`
 - `Docker`
+
+---
+
+## 🔧 Customization
+To add additional dev container features and VS Code extensions, modify the `.devcontainer/devcontainer.json` by appending to the `"features"` object and `"extensions"` array, respectively.
 
 ---
 
