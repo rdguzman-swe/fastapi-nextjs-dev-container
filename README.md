@@ -111,18 +111,21 @@ make help
 ---
 
 ## 🪝 Pre-commit Hooks
+
 This dev container includes `pre-commit` hooks to automatically run checks before each commit:
-- `eslint` (`TypeScript` linting)
-- `prettier` (`TypeScript` formatting)
-- `ruff check` (`Python` linting)
-- `ruff format` (`Python` formatting)
-- `ty` (`Python` type checking)
+
+- `eslint` (TypeScript linting)
+- `prettier` (TypeScript formatting)
+- `ruff check` (Python linting)
+- `ruff format` (Python formatting)
+- `ty` (Python type checking)
 
 > Hooks are automatically installed when the dev container is created.
 
 ---
 
 ## ⚙️ Dev Container Details
+
 This dev container is based on `Debian 12` and comes with the following tools and `VS Code` extensions.
 
 ### 🔨 Preinstalled Tools
@@ -131,7 +134,6 @@ This dev container is based on `Debian 12` and comes with the following tools an
 - `Oh My Zsh!`
 - `Git`
 - `curl`
-- Build tools
 - `Bun`
 - `uv`
 - `Python`
@@ -161,4 +163,4 @@ Make sure to rebuild the dev container to see the changes.
 ---
 
 ## 📄 License
-This project is licensed under the MIT License.
+This project is licensed under the `MIT License`.
