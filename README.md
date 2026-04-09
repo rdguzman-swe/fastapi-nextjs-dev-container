@@ -114,11 +114,13 @@ make help
 
 This dev container includes `pre-commit` hooks to automatically run checks before each commit:
 
-- `eslint` (TypeScript linting)
-- `prettier` (TypeScript formatting)
-- `ruff check` (Python linting)
-- `ruff format` (Python formatting)
-- `ty` (Python type checking)
+| Hook          | Role                    |
+| ------------- | ----------------------- |
+| `eslint`      | `TypeScript` linting    |
+| `prettier`    | `TypeScript` formatting |
+| `ruff-check`  | `Python` linting        |
+| `ruff-format` | `Python` formatting     |
+| `ty`          | `Python` type checking  |
 
 > Hooks are automatically installed when the dev container is created.
 
