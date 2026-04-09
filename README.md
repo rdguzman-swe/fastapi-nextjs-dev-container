@@ -1,4 +1,4 @@
-# fastapi-nextjs-dev-container
+# nextjs-fastapi-dev-container
 
 [![Next.js](https://img.shields.io/badge/%E2%80%8B-Next%2Ejs-000000?logo=Next%2Ejs)](https://github.com/vercel/next.js)
 [![Tailwind CSS](https://img.shields.io/badge/%E2%80%8B-Tailwind%20CSS-06B6D4?logo=Tailwind%20CSS)](https://github.com/tailwindlabs/tailwindcss)
