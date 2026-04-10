@@ -17,8 +17,7 @@ scaffold: ## Create frontend (Next.js) and backend (FastAPI) if missing
 		mkdir frontend && cd frontend && \
 		bun create next-app@latest . --use-bun --typescript --tailwind --eslint --app --no-git && \
 		bun add -d prettier && \
-		bun pkg set scripts.format="prettier --write ." && \
-		bun pkg set scripts.format:check="prettier --check ."; \
+		jq '.scripts.format="prettier --write ." | .scripts["format:check"]="prettier --check ."' package.json > tmp.json && mv tmp.json package.json; \
 	else \
 		echo "  → frontend already exists"; \
 	fi
