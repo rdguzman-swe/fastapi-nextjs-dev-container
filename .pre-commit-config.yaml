@@ -1,36 +1,36 @@
 repos:
-- repo: local
-  hooks:
-    # --- Frontend ---
-    - id: eslint
-      name: eslint
-      entry: bun eslint
-      language: system
-      files: \.[jt]sx?$
+  - repo: local
+    hooks:
+      # --- Frontend ---
+      - id: eslint
+        name: eslint
+        entry: bunx --bun eslint
+        language: system
+        files: \.[jt]sx?$
 
-    - id: prettier
-      name: prettier
-      entry: bun prettier --write
-      language: system
-      files: \.(js|ts|jsx|tsx|json|css|md)$
+      - id: prettier
+        name: prettier
+        entry: bunx --bun prettier --write
+        language: system
+        files: \.(js|ts|jsx|tsx|json|css|md)$
 
-    # --- Backend ---
-    - id: ruff-check
-      name: ruff (check)
-      entry: uv run ruff check
-      language: system
-      types_or: [ python, pyi, jupyter ]
-      # args: [ --fix ]
+      # --- Backend ---
+      - id: ruff-check
+        name: ruff (check)
+        entry: uv run ruff check
+        language: system
+        types_or: [python, pyi, jupyter]
+        # args: [ --fix ]
 
-    - id: ruff-format
-      name: ruff (format)
-      entry: uv run ruff format
-      language: system
-      types_or: [ python, pyi, jupyter ]
+      - id: ruff-format
+        name: ruff (format)
+        entry: uv run ruff format
+        language: system
+        types_or: [python, pyi, jupyter]
 
-    - id: ty
-      name: ty (type check)
-      entry: uv run ty
-      language: system
-      pass_filenames: false
-      # stages: [ pre-push ]
+      - id: ty
+        name: ty (type check)
+        entry: uv run ty
+        language: system
+        pass_filenames: false
+        # stages: [ pre-push ]

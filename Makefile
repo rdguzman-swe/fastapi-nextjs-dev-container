@@ -15,7 +15,10 @@ scaffold: ## Create frontend (Next.js) and backend (FastAPI) if missing
 	@echo "▶ Scaffolding frontend..."
 	@if [ ! -d frontend ]; then \
 		mkdir frontend && cd frontend && \
-		bun create next-app@latest . --use-bun --typescript --tailwind --eslint --app --no-git; \
+		bun create next-app@latest . --use-bun --typescript --tailwind --eslint --app --no-git && \
+		bun add -d prettier && \
+		bun pkg set scripts.format="prettier --write ." && \
+		bun pkg set scripts.format:check="prettier --check ."; \
 	else \
 		echo "  → frontend already exists"; \
 	fi
